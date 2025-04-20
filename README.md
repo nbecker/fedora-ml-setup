@@ -51,6 +51,8 @@ _(More detailed instructions coming soon.)_
 README.md       # This document
 pixi.toml       # Pixi environment description (to be added)
 pixi.lock       # Pixi lock file (after first install)
+.dir-locals.el  # If you want to use emacs for your development this
+is helpful
 ```
 
 ---
