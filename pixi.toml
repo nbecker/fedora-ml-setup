@@ -1,0 +1,36 @@
+[project]
+name      = "DUIDD-cuda12-sionna1"
+channels  = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "==3.10"
+notebook = ">=7.4.0,<8"
+ipykernel = ">=6.29.5,<7"
+
+[pypi-dependencies]
+# -- Sionna core --
+sionna                  = "==1.0.2"
+numpy                   = ">=1.26,<2.0"
+
+# -- Sionna‑RT’s Mitsuba/Dr.Jit deps (must match sionna-rt 1.0.2) --
+drjit                   = "==1.0.3"
+mitsuba                 = "==3.6.2"
+
+# -- NVIDIA CUDA 12.8 stack via PyPI wheels (they ship the .so’s and do RTLD_GLOBAL on import) --
+nvidia-cuda-runtime-cu12 = "==12.8.90"
+nvidia-cudnn-cu12        = "==9.8.0.87"
+nvidia-cublas-cu12       = "==12.8.4.1"
+nvidia-cufft-cu12        = "==11.3.3.83"
+nvidia-curand-cu12       = "==10.3.9.90"
+nvidia-cusolver-cu12     = "==11.7.3.90"
+nvidia-cusparse-cu12     = "==12.5.8.93"
+executing = "*"
+stack-data = "*"
+
+[tasks]
+# Bare‐bones REPL
+python    = { cmd = "python" }
+
+# GPU‐check: import the NVIDIA shims (preloading their .so’s) then list GPUs
+python-gpu = { cmd = "python -c \"import nvidia.cuda_runtime,nvidia.cudnn,nvidia.cublas,nvidia.cufft,nvidia.curand,nvidia.cusolver,nvidia.cusparse; import tensorflow as tf; print('GPUs:', tf.config.list_physical_devices('GPU'))\"" }
