@@ -1,11 +1,15 @@
 ((python-mode
-  . ((python-shell-interpreter . "/home/nbecker/ml-gpu/.pixi/envs/default/bin/python")
-     (python-shell-interpreter-args . "-i")
-     (eglot-workspace-configuration
-      . ((:python
-          (:pythonPath . "/home/nbecker/ml-gpu/.pixi/envs/default/bin/python"))))
-     (eval . (setenv "PYTHONNOUSERSITE" "1"))
-     (eval . (setq-local exec-path
-                         (cons (expand-file-name ".pixi/envs/default/bin"
-                                                 (locate-dominating-file default-directory ".dir-locals.el"))
-                               exec-path))))))
+  . ((eval . (setenv "PYTHONNOUSERSITE" "1"))
+     (eval . (let* ((root (locate-dominating-file default-directory ".dir-locals.el"))
+                    (pixi-python (expand-file-name ".pixi/envs/default/bin/python" root))
+                    (pixi-bin (expand-file-name ".pixi/envs/default/bin" root)))
+               (setq-local python-shell-interpreter pixi-python)
+               (setq-local python-shell-interpreter-args "-i")
+               (setq-local exec-path (cons pixi-bin exec-path))
+               (setq-local eglot-workspace-configuration
+                           `(:python (:pythonPath ,pixi-python)))
+               (add-hook 'hack-local-variables-hook
+                         (lambda ()
+                           (unless (get-buffer-process (current-buffer))
+                             (run-python (python-shell-parse-command) nil t)))
+                         nil t))))))
