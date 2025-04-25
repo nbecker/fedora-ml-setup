@@ -9,6 +9,10 @@ notebook = ">=7.4.0,<8"
 ipykernel = ">=6.29.5,<7"
 mypy = ">=1.15.0,<2"
 pip = ">=25.0.1,<26"
+numpy = "==1.26.4"
+mplcairo = ">=0.6.1,<0.7"
+pillow = ">=11.1.0,<12"
+pyqt = ">=5.15.10,<6"
 
 [pypi-dependencies]
 # -- Sionna core --
@@ -33,7 +37,7 @@ nvidia-cuda-nvcc-cu12 = "==12.8.93"
 
 [tasks]
 # Bare‐bones REPL
-python    = { cmd = "PYTHONNOUSERSITE=1; python" }
+python    = { cmd = "PYTHONNOUSERSITE=1 python" }
 
 # GPU‐check: import the NVIDIA shims (preloading their .so’s) then list GPUs
-python-gpu = { cmd = "PYTHONNOUSERSITE=1; python -c \"import nvidia.cuda_runtime,nvidia.cudnn,nvidia.cublas,nvidia.cufft,nvidia.curand,nvidia.cusolver,nvidia.cusparse; import tensorflow as tf; print('GPUs:', tf.config.list_physical_devices('GPU'))\"" }
+python-gpu = { cmd = "PYTHONNOUSERSITE=1 python -c \"import nvidia.cuda_runtime,nvidia.cudnn,nvidia.cublas,nvidia.cufft,nvidia.curand,nvidia.cusolver,nvidia.cusparse; import tensorflow as tf; print('GPUs:', tf.config.list_physical_devices('GPU'))\"" }
