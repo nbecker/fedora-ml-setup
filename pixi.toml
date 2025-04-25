@@ -8,6 +8,7 @@ python = "==3.10"
 notebook = ">=7.4.0,<8"
 ipykernel = ">=6.29.5,<7"
 mypy = ">=1.15.0,<2"
+pip = ">=25.0.1,<26"
 
 [pypi-dependencies]
 # -- Sionna core --
@@ -28,6 +29,7 @@ nvidia-cusolver-cu12     = "==11.7.3.90"
 nvidia-cusparse-cu12     = "==12.5.8.93"
 executing = "*"
 stack-data = "*"
+nvidia-cuda-nvcc-cu12 = "==12.8.93"
 
 [tasks]
 # Bare‐bones REPL
